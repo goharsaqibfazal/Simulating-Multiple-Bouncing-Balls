@@ -1,0 +1,2 @@
+# Simulating-Multiple-Bouncing-Balls
+In this program I used object-oriented design to build on the work I had already completed in the first project. Namely, now that I have implemented the simulation of a single bouncing ball with a simple physics model, I leveraged my existing code to allow adding multiple bouncing balls to the simulation. For this project, I randomly generated the parameters for 100 separate balls. I then simulate these 100 balls bouncing simultaneously, but with each ball’s simulation based on its own parameters using the thread class.
