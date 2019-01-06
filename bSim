@@ -1,0 +1,51 @@
+package abcde;
+
+import acm.graphics.GLine;
+import acm.program.GraphicsProgram;
+import acm.util.RandomGenerator;
+
+public class bSim extends GraphicsProgram {
+
+	//Setting up the parameters to be used in the following run method
+	private static final long serialVersionUID = 1L;
+	private static final int WIDTH = 1200; // The width of the window created
+	private static final int HEIGHT = 800; //The height of the window created
+	private static final int OFFSET = 200; 
+	private static final int NUMBALLS = 100; // Number of balls to simulate.
+	private static final double MINSIZE = 3; // Minimum ball size
+	private static final double MAXSIZE = 20; // Maximum ball size
+	private static final double XMIN = 10; // Minimum X start location
+	private static final double XMAX = 50; // Maximum X start location
+	private static final double YMIN = 50; //Minimum Y start location
+	private static final double YMAX = 100; // Maximum Y start location
+	private static final double EMIN = 0.1; // Minimum loss coefficient
+	private static final double EMAX = 0.3; // Maximum loss coefficient
+	private static final double VMIN = 0.5; // Minimum X velocity
+	private static final double VMAX = 3.0; // Maximum Y velocity
+
+	@SuppressWarnings("deprecation")
+	public void run() {
+		// Set up display, create and start multiple instances of gBall
+		this.resize(WIDTH, HEIGHT); //adjusts the width and height of the window according to the specifications given in the assignment
+		add(new GLine(0, HEIGHT-OFFSET, 1200, HEIGHT - OFFSET)); //creates a line from (0,600) to (1200,600)
+		RandomGenerator rgen = new RandomGenerator(); //using the random generator class rgen is created
+
+		for(int i=0; i < NUMBALLS; i++){
+			/*The gBall constructor is called to be implemented by the GraphicsProgram
+			 * The randomly generated parameters are set for the constructor of the new gBall object i.e. ballA using the RandomGenerator class
+			 * The Xi, Yi and bSize parameters are multiplied by the scale factor which is 5 in this case
+			 * The bLoss is multiplied by 3 to increase the energy loss of the ball for the same time interval
+			 */
+			gBall ballA = new gBall(5*rgen.nextDouble(XMIN, XMAX),5*rgen.nextDouble(YMIN,YMAX), 5*rgen.nextDouble(MINSIZE, MAXSIZE), rgen.nextColor(), 3*rgen.nextDouble(EMIN, EMAX), rgen.nextDouble(VMIN, VMAX));
+			add(ballA.myBall); //adds the randomly generated balls onto the screen
+
+			/**
+			 *Causes this thread to begin execution; the Java Virtual Machine calls the run method of this thread.
+			 *The result is that two threads are running concurrently: the current thread (which returns from the call to the start method) and the other thread (which executes its run method).
+			 *It is never legal to start a thread more than once. In particular, a thread may not be restarted once it has completed execution.
+			 */
+			ballA.start();
+
+		}
+	}
+}
